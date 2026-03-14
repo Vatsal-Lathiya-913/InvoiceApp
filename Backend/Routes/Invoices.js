@@ -1,6 +1,6 @@
 import express from 'express';
-import InvoiceSchema from '../Models/InvoiceSchema.cjs';
-import router from "./Auth.js";
+import InvoiceSchema from '../Models/InvoiceSchema.js';
+import invoiceSchema from "../Models/InvoiceSchema.js";
 const app = express();
 const Route = express.Router();
 
@@ -30,14 +30,40 @@ Route.post('/invoice/generate',async (req,res)=>{
             return res.status(400).json({ error: 'From and To Party do not same GST Please Check it' });
         }
 
+        if(!invoice.fromParty.email.includes("@") || !invoice.toParty.email.includes("@")) {
+            return res.status(400).json({ error: 'Email must contain a valid email address' });
+        }
+
         await invoice.save();
 
         // 4️⃣ Return saved invoice
         res.status(201).json({
-            status: "OK",
-            message: "Invoice generated successfully",
-            invoice
+            invoice:invoice
         });
+})
+
+Route.post('/invoice/data',async (req,res)=>{
+    const invoice = await InvoiceSchema.find();
+    if(!invoice){
+        return res.status(404).json({ error: 'Invoice Not Available' });
+    }else{
+        return res.status(200).json(invoice);
+    }
+})
+
+Route.delete('/invoice/:id',async (req,res)=>{
+   try {
+       const id = req.params.id;
+       const invoice = await invoiceSchema.deleteOne({_id: id});
+       if(!invoice){
+           res.status(404).json({ error: 'Invoice Not Found' });
+       }
+       res.json({
+           message: 'Invoice Deleted',
+       });
+   }catch(e){
+        res.status(400).json({ error: 'Insert Invalid invoice' });
+   }
 })
 
 export default Route;

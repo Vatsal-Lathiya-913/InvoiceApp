@@ -30,11 +30,11 @@ export default function SignIn() {
     const handleAuthentication = async (event) => {
         event.preventDefault();
         try {
-            const res = await axios.post("http://192.168.1.9/api/auth", formData);
+            const res = await axios.post("http://localhost:8081/api/auth", formData);
             if (res.status === 200) {
                alert("Login Successful!")
                localStorage.setItem("token", res.data.token);
-               navigate("/verify")
+               navigate("/verify");
 
             }
         } catch (e) {

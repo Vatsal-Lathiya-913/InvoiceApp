@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import rupeestoword from "convert-rupees-into-words";
 
 const InvoiceSchema = new mongoose.Schema({
     fromParty: {
@@ -35,6 +36,7 @@ const InvoiceSchema = new mongoose.Schema({
     cgst: Number,
     sgst: Number,
     grandTotal: Number,
+    TotalInWord: {type:String,default:''},
     signature: String
 });
 
@@ -54,9 +56,10 @@ InvoiceSchema.pre('save',   async function() {
         this.cgst = parseFloat((this.subTotal * 0.025).toFixed(2));
         this.sgst = parseFloat((this.subTotal * 0.025).toFixed(2));
         this.grandTotal = parseFloat((this.subTotal + this.cgst + this.sgst).toFixed(2));
+        this.TotalInWord = rupeestoword(this.grandTotal) + " Only";
     }catch(e){
         console.log("Ërror Occured",e.message);
     }
 });
 
-module.exports = mongoose.model("Invoice", InvoiceSchema);
+export default mongoose.model("Invoice", InvoiceSchema);

@@ -18,7 +18,6 @@ export const Secret = process.env.jwtSecret;
 app.use(cors());
 app.use(express.json());
 
-app.use(express.urlencoded({ extended: true }));
 await DBConnection(process.env.mongoURI);
 app.use("/api",Auth);
 app.use("/api",Invoices);

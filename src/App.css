@@ -1,7 +1,46 @@
 .form-data{
     padding: 10px;
     border:1px solid #ccc;
+    background-color: #ffffff;
     font-size:13px;
     font-weight:500;
     border-radius:10px;
+}
+
+.dashboard-grid{
+    display: grid;
+    grid-template-columns: 0.25fr 1fr;
+}
+
+@media  (max-width: 768px) {
+    .dashboard-grid{
+        grid-template-columns: 1fr;
+    }
+}
+
+.invoice-form label{
+    font-weight: 600;
+    font-size: 14px;
+    margin: 3px;
+    color: rgba(0, 0, 0, 0.69);
+}
+
+table{
+    border-collapse:collapse;
+    width: 100%;
+}
+
+th,td{
+    text-align: center;
+}
+
+.invoices-table th{
+    padding: 8px;
+    text-align: center;
+}
+
+.invoices-table td{
+    padding: 2px;
+    text-align: center;
+    border-bottom:1px solid rgba(201, 201, 201, 0.6);
 }
