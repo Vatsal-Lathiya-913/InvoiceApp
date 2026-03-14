@@ -7,7 +7,9 @@ import { VitePWA } from 'vite-plugin-pwa'
 export default defineConfig({
   plugins: [react(),tailwindcss(),VitePWA()],
   server: {
-    allowedHosts: "all"
+    allowedHosts: [
+      "invoiceapp-1-25qs.onrender.com"
+    ]
   },
   resolve: {
     alias: {
