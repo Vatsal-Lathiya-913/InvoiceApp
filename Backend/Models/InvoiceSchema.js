@@ -5,14 +5,23 @@ const InvoiceSchema = new mongoose.Schema({
         name: {type: String, required: true},
         address: {type: String, required: true},
         gst: {type: String, required: true},
+        mobile: {type: String, required: true},
+        email: {type: String, required: true},
+        state :  {type: String, required: true},
+        stateCode: {type: Number, required: true},
     },
     toParty: {
         name: {type: String, required: true},
         address: {type: String, required: true},
         gst: {type: String, required: true},
+        mobile: {type: String, required: true},
+        email: {type: String, required: true},
+        state :  {type: String, required: true},
+        stateCode: {type: Number, required: true},
     },
     billNo: {type: Number},
     invoiceDate: {type: Date,default:Date.now},
+    DueDate: {type: Date, default:new Date().setDate(new Date().getDate() + 10)},
     items: [
         {
             description: {type: String, required: true},
